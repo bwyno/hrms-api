@@ -4,6 +4,7 @@ use App\Http\Controllers\v1\AuthController;
 use App\Http\Controllers\v1\UserController;
 use App\Http\Controllers\v1\PositionController;
 use App\Http\Controllers\v1\LeaveTypeController;
+use App\Http\Controllers\v1\DepartmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,3 +49,13 @@ Route::prefix('leave-types')->group(function () {
     Route::delete('/{id}',[LeaveTypeController::class, 'destroy']);
     Route::post('/',[LeaveTypeController::class, 'store']);
 });
+Route::get('/users',[UserController::class, 'index']);
+Route::get('/users/{user}',[UserController::class, 'show']);
+Route::patch('/users/{user}',[UserController::class, 'update']);
+Route::delete('/users/{user}',[UserController::class, 'destroy']);
+
+Route::get('/departments',[DepartmentController::class, 'index']);
+Route::get('/departments/{department}',[DepartmentController::class, 'show']);
+Route::post('/departments',[DepartmentController::class, 'create']);
+Route::patch('/departments/{department}',[DepartmentController::class, 'update']);
+Route::delete('/departments/{department}',[DepartmentController::class, 'destroy']);
