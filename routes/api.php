@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\v1\AuthController;
 use App\Http\Controllers\v1\UserController;
+use App\Http\Controllers\v1\PositionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,13 @@ Route::prefix('users')->group(function () {
 });
 
 
+Route::get('/users',[UserController::class, 'index']);
+Route::get('/users/{user}',[UserController::class, 'show']);
+Route::patch('/users/{user}',[UserController::class, 'update']);
+Route::delete('/users/{user}',[UserController::class, 'destroy']);
+
+Route::get('/positions',[PositionController::class, 'index']);
+Route::get('/positions/{id}',[PositionController::class, 'show']);
+Route::patch('/positions/{id}',[PositionController::class, 'update']);
+Route::delete('/positions/{id}',[PositionController::class, 'destroy']);
+Route::post('/positions',[PositionController::class, 'store']);
