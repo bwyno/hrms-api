@@ -5,6 +5,7 @@ namespace App\Http\Controllers\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\PositionRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Models\Position;
 
 class PositionController extends Controller
@@ -23,15 +24,12 @@ class PositionController extends Controller
     public function store(PositionRequest $request) : JsonResponse
     {
         try{
-          $position = new Position;
-          $position->create($request->all());
+            $position = Position::create($request->all());
           
-          return response()->json($position);
+            return response()->json($position);
         }catch (\Throwable $e){
             return response()->json($e);
         }
-        
-
     }
 
     public function update(int $id, PositionRequest $request ): JsonResponse
