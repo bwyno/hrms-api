@@ -6,34 +6,63 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\UserRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
-        return User::all();
+        try {
+            DB::beginTransaction();
+            $users = User::all();
+            DB::commit();
+            return response()->json($users);
+        } catch (Throwable $e) {
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 
     public function show(int $user_id): JsonResponse
     {
-        $user = User::query()->find($user_id);
-        return response()->json($user);
+        try {
+            DB::beginTransaction();
+            $user = User::query()->find($user_id);
+            DB::commit();
+            return response()->json($user);
+        } catch (Throwable $e) {
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 
     public function update(int $user_id, UserRequest $request ): JsonResponse
     {
-        $user = User::query()->find($user_id);
-        $user->update($request->all());
-
-        return response()->json($user);
+        try {
+            DB::beginTransaction();
+            $user = User::query()->find($user_id);
+            $user->update($request->all());
+            DB::commit();
+            return response()->json($user);
+        } catch (Throwable $e) {
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 
     public function destroy(int $user_id): JsonResponse
     {
-        $user = User::query()->find($user_id);
-        $user->delete();
-
-        return response()->json(null, 204);
+        try {
+            DB::beginTransaction();
+            $user = User::query()->find($user_id);
+            $user->delete();
+            DB::commit();
+            return response()->json(null, 204);
+        } catch (Throwable $e) {
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 }

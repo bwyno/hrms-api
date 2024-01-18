@@ -23,7 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('auth', [AuthController::class, 'redirectToAuth']);
 Route::get('auth/callback', [AuthController::class, 'handleAuthCallback']);
 
-Route::get('/users',[UserController::class, 'index']);
-Route::get('/users/{user}',[UserController::class, 'show']);
-Route::patch('/users/{user}',[UserController::class, 'update']);
-Route::delete('/users/{user}',[UserController::class, 'destroy']);
+Route::prefix('users')->group(function () {
+    Route::get('/',[UserController::class, 'index']);
+    Route::get('/{user}',[UserController::class, 'show']);
+    Route::patch('/{user}',[UserController::class, 'update']);
+    Route::delete('/{user}',[UserController::class, 'destroy']);
+});
+
+
