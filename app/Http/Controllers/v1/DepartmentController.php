@@ -16,10 +16,8 @@ class DepartmentController extends Controller
     {
         try{
             $department = Department::all();
-            DB::commit();
             return response()->json($department);
         } catch (Throwable $e){
-            DB::rollback();
             return  response()->json($e);
         }
     }
@@ -28,10 +26,8 @@ class DepartmentController extends Controller
     {   
         try{
             $department = Department::query()->find($department_id);
-            DB::commit();
             return response()->json($department);
         }catch(Throwable $e){
-            DB::rollback();
             return response()->json($e);
         }    
     }
