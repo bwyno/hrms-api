@@ -14,11 +14,22 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable(); // Changed to nullable()
-            $table->string('google_id'); // Added
-            $table->string('avatar')->nullable(); // Added
+            $table->string('email_address')->unique();
+            $table->string('google_id');
+            $table->string('avatar')->nullable();
+            $table->date('birthdate')->nullable();
+            $table->integer('age')->nullable();
+            $table->string('sex')->nullable();
+            $table->string('marital_status')->nullable();
+            $table->string('nationality')->nullable();
+            $table->string('ss_number')->nullable();
+            $table->string('primary_address')->nullable();
+            $table->string('secondary_address')->nullable();
+            $table->string('contact_number_1')->nullable();
+            $table->string('contact_number_2')->nullable();
+            $table->date('date_hired')->nullable();
+            $table->string('employment_status')->nullable();
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

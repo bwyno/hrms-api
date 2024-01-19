@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\v1;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\JsonResponse;
@@ -34,10 +35,9 @@ class AuthController extends Controller
         $user = User::query()
             ->firstOrCreate(
                 [
-                    'email' => $socialiteUser->getEmail(),
+                    'email_address' => $socialiteUser->getEmail(),
                 ],
                 [
-                    'email_verified_at' => now(),
                     'name' => $socialiteUser->getName(),
                     'google_id' => $socialiteUser->getId(),
                     'avatar' => $socialiteUser->getAvatar(),
