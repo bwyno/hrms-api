@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\v1;
 
+use App\Models\Position;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\PositionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Models\Position;
+
 
 use Illuminate\Support\Facades\DB;
 use Throwable;

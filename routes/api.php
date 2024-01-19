@@ -3,6 +3,7 @@
 use App\Http\Controllers\v1\AuthController;
 use App\Http\Controllers\v1\UserController;
 use App\Http\Controllers\v1\PositionController;
+use App\Http\Controllers\v1\LeaveTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::prefix('users')->group(function () {
     Route::delete('/{user}',[UserController::class, 'destroy']);
 });
 
+
 Route::prefix('positions')->group(function () {
     Route::get('/',[PositionController::class, 'index']);
     Route::get('/{id}',[PositionController::class, 'show']);
@@ -39,3 +41,9 @@ Route::prefix('positions')->group(function () {
     Route::post('/',[PositionController::class, 'store']);
 });
     
+Route::get('/leavetype',[LeaveTypeController::class, 'index']);
+Route::get('/leavetype/{id}',[LeaveTypeController::class, 'show']);
+Route::patch('/leavetype/{id}',[LeaveTypeController::class, 'update']);
+Route::delete('/leavetype/{id}',[LeaveTypeController::class, 'destroy']);
+Route::post('/leavetype',[LeaveTypeController::class, 'store']);
+
