@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 use Illuminate\Support\Facades\DB;
+use Spatie\QueryBuilder\QueryBuilder;
 use Throwable;
 
 class UserController extends Controller
@@ -15,12 +16,10 @@ class UserController extends Controller
     public function index(): JsonResponse
     {
         try {
-            DB::beginTransaction();
-            $users = User::all();
-            DB::commit();
+            $users = QueryBuilder::for(User::class)
+                ->get();
             return response()->json($users);
         } catch (Throwable $e) {
-            DB::rollback();
             return  response()->json($e);
         }
     }
@@ -28,12 +27,9 @@ class UserController extends Controller
     public function show(int $user_id): JsonResponse
     {
         try {
-            DB::beginTransaction();
             $user = User::query()->find($user_id);
-            DB::commit();
             return response()->json($user);
         } catch (Throwable $e) {
-            DB::rollback();
             return  response()->json($e);
         }
     }

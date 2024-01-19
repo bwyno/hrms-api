@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\v1\AuthController;
+use App\Http\Controllers\v1\LeaveController;
 use App\Http\Controllers\v1\UserController;
 use App\Http\Controllers\v1\PositionController;
 use App\Http\Controllers\v1\LeaveTypeController;
@@ -28,9 +29,9 @@ Route::get('auth/callback', [AuthController::class, 'handleAuthCallback']);
 
 Route::prefix('users')->group(function () {
     Route::get('/',[UserController::class, 'index']);
-    Route::get('/{user}',[UserController::class, 'show']);
-    Route::patch('/{user}',[UserController::class, 'update']);
-    Route::delete('/{user}',[UserController::class, 'destroy']);
+    Route::get('/{id}',[UserController::class, 'show']);
+    Route::patch('/{id}',[UserController::class, 'update']);
+    Route::delete('/{id}',[UserController::class, 'destroy']);
 });
 
 
@@ -48,6 +49,14 @@ Route::prefix('leave-types')->group(function () {
     Route::patch('/{id}',[LeaveTypeController::class, 'update']);
     Route::delete('/{id}',[LeaveTypeController::class, 'destroy']);
     Route::post('/',[LeaveTypeController::class, 'store']);
+});
+
+Route::prefix('leaves')->group(function () {
+    Route::get('/',[LeaveController::class, 'index']);
+    Route::get('/{id}',[LeaveController::class, 'show']);
+    Route::patch('/{id}',[LeaveController::class, 'update']);
+    Route::delete('/{id}',[LeaveController::class, 'destroy']);
+    Route::post('/',[LeaveController::class, 'store']);
 });
 
 Route::prefix('departments')->group(function () {
