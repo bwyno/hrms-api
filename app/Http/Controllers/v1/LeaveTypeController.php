@@ -8,43 +8,75 @@ use App\Http\Requests\v1\LeaveTypeRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+use Throwable;
+
 class LeaveTypeController extends Controller
 {
     public function index()
     {
-        return LeaveType::all();
+        try {
+            DB::beginTransaction();
+            $leavetype = LeaveType::all();
+            DB::commit();
+            return response()->json($users);
+        } catch (Throwable $e) {
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 
     public function show(int $id): JsonResponse
     {
-        $leavetype = LeaveType::query()->find($id);
-        return response()->json($leavetype);
+        try {
+            DB::beginTransaction();
+            $leavetype = LeaveType::query()->find($id);
+            DB::commit();
+            return response()->json($users);
+        } catch (Throwable $e) {
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 
     public function store(LeaveTypeRequest $request) : JsonResponse
     {
-        try{
+        try {
+            DB::beginTransaction();
             $leavetype = LeaveType::create($request->all());
-          
-            return response()->json($leavetype);
-        }catch (\Throwable $e){
-            return response()->json($e);
+            DB::commit();
+            return response()->json($users);
+        } catch (Throwable $e) {
+            DB::rollback();
+            return  response()->json($e);
         }
     }
 
     public function update(int $id, LeaveTypeRequest $request ): JsonResponse
     {
-        $leavetype = LeaveType::query()->find($id);
-        $leavetype->update($request->all());
-
-        return response()->json($leavetype);
+        try {
+            DB::beginTransaction();
+            $leavetype = LeaveType::query()->find($id);
+            $leavetype->update($request->all());
+            DB::commit();
+            return response()->json($users);
+        } catch (Throwable $e) {
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 
     public function destroy(int $id): JsonResponse
     {
-        $leavetype = LeaveType::query()->find($id);
-        $leavetype->delete();
-
-        return response()->json(null, 204);
+        try {
+            DB::beginTransaction();
+            $leavetype = LeaveType::query()->find($id);
+            $leavetype->delete();
+            DB::commit();
+            return response()->json($users);
+        } catch (Throwable $e) {
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 }
