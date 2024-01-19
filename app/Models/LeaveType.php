@@ -9,7 +9,6 @@ class LeaveType extends Model
 {
     use HasFactory;
 
-    protected $table = 'leavetype';
 
     protected $fillable = [
         'name',

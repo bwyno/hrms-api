@@ -19,7 +19,7 @@ class LeaveTypeController extends Controller
             DB::beginTransaction();
             $leavetype = LeaveType::all();
             DB::commit();
-            return response()->json($users);
+            return response()->json($leavetype);
         } catch (Throwable $e) {
             DB::rollback();
             return  response()->json($e);
@@ -32,7 +32,7 @@ class LeaveTypeController extends Controller
             DB::beginTransaction();
             $leavetype = LeaveType::query()->find($id);
             DB::commit();
-            return response()->json($users);
+            return response()->json($leavetype);
         } catch (Throwable $e) {
             DB::rollback();
             return  response()->json($e);
@@ -45,7 +45,7 @@ class LeaveTypeController extends Controller
             DB::beginTransaction();
             $leavetype = LeaveType::create($request->all());
             DB::commit();
-            return response()->json($users);
+            return response()->json($leavetype);
         } catch (Throwable $e) {
             DB::rollback();
             return  response()->json($e);
@@ -59,7 +59,7 @@ class LeaveTypeController extends Controller
             $leavetype = LeaveType::query()->find($id);
             $leavetype->update($request->all());
             DB::commit();
-            return response()->json($users);
+            return response()->json($leavetype);
         } catch (Throwable $e) {
             DB::rollback();
             return  response()->json($e);
@@ -73,7 +73,7 @@ class LeaveTypeController extends Controller
             $leavetype = LeaveType::query()->find($id);
             $leavetype->delete();
             DB::commit();
-            return response()->json($users);
+            return response()->json($leavetype);
         } catch (Throwable $e) {
             DB::rollback();
             return  response()->json($e);
