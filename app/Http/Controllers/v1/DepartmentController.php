@@ -35,6 +35,7 @@ class DepartmentController extends Controller
     public function create(DepartmentRequest $request): JsonResponse
     {
         try{
+            DB::beginTransaction();
             $department = Department::create(
                 $request->all(),
             ); 
@@ -49,6 +50,7 @@ class DepartmentController extends Controller
     public function update(int $department_id, DepartmentRequest $request ): JsonResponse
     {
         try{
+            DB::beginTransaction();
             $department = Department::query()->find($department_id);
             $department->update($request->all());
             DB::commit();
@@ -62,6 +64,7 @@ class DepartmentController extends Controller
     public function destroy(int $department_id): JsonResponse
     {
         try{
+            DB::beginTransaction();
             $department = Department::query()->find($department_id);
             $department->delete();
             DB::commit();
