@@ -49,13 +49,11 @@ Route::prefix('leave-types')->group(function () {
     Route::delete('/{id}',[LeaveTypeController::class, 'destroy']);
     Route::post('/',[LeaveTypeController::class, 'store']);
 });
-Route::get('/users',[UserController::class, 'index']);
-Route::get('/users/{user}',[UserController::class, 'show']);
-Route::patch('/users/{user}',[UserController::class, 'update']);
-Route::delete('/users/{user}',[UserController::class, 'destroy']);
 
-Route::get('/departments',[DepartmentController::class, 'index']);
-Route::get('/departments/{department}',[DepartmentController::class, 'show']);
-Route::post('/departments',[DepartmentController::class, 'create']);
-Route::patch('/departments/{department}',[DepartmentController::class, 'update']);
-Route::delete('/departments/{department}',[DepartmentController::class, 'destroy']);
+Route::prefix('departments')->group(function () {
+    Route::get('/',[DepartmentController::class, 'index']);
+    Route::get('/{id}',[DepartmentController::class, 'show']);
+    Route::post('/',[DepartmentController::class, 'create']);
+    Route::patch('/{id}',[DepartmentController::class, 'update']);
+    Route::delete('/{id}',[DepartmentController::class, 'destroy']);
+});
