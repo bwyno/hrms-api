@@ -40,10 +40,11 @@ Route::prefix('positions')->group(function () {
     Route::delete('/{id}',[PositionController::class, 'destroy']);
     Route::post('/',[PositionController::class, 'store']);
 });
-    
-Route::get('/leavetype',[LeaveTypeController::class, 'index']);
-Route::get('/leavetype/{id}',[LeaveTypeController::class, 'show']);
-Route::patch('/leavetype/{id}',[LeaveTypeController::class, 'update']);
-Route::delete('/leavetype/{id}',[LeaveTypeController::class, 'destroy']);
-Route::post('/leavetype',[LeaveTypeController::class, 'store']);
 
+Route::prefix('leave-types')->group(function () {
+    Route::get('/',[LeaveTypeController::class, 'index']);
+    Route::get('/{id}',[LeaveTypeController::class, 'show']);
+    Route::patch('/{id}',[LeaveTypeController::class, 'update']);
+    Route::delete('/{id}',[LeaveTypeController::class, 'destroy']);
+    Route::post('/',[LeaveTypeController::class, 'store']);
+});
