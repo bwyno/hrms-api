@@ -13,7 +13,7 @@ use Throwable;
 
 class LeaveTypeController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         try {
             DB::beginTransaction();

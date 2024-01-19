@@ -39,6 +39,7 @@ class UserRequest extends FormRequest
             'date_hired' => ['sometimes'],
             'employment_status' => ['sometimes'],
             'is_admin' => ['sometimes'],
+            'position_id' => ['sometimes'],
         ];
     }
 }

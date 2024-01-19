@@ -14,7 +14,7 @@ use Throwable;
 
 class PositionController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         try{
             DB::beginTransaction();
