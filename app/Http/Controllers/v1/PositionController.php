@@ -8,43 +8,75 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\Position;
 
+use Illuminate\Support\Facades\DB;
+use Throwable;
+
 class PositionController extends Controller
 {
     public function index()
     {
-        return Position::all();
+        try{
+            DB::beginTransaction();
+            $position = Position::all();
+            DB::commit();
+            return response()->json($position);
+        } catch (Throwable $e){
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 
     public function show(int $id): JsonResponse
     {
-        $position = Position::query()->find($id);
-        return response()->json($position);
+        try{
+            DB::beginTransaction();
+            $position = Position::query()->find($id);
+            DB::commit();
+            return response()->json($position);
+        } catch (Throwable $e){
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 
     public function store(PositionRequest $request) : JsonResponse
     {
         try{
+            DB::beginTransaction();
             $position = Position::create($request->all());
-          
+            DB::commit();
             return response()->json($position);
-        }catch (\Throwable $e){
-            return response()->json($e);
+        } catch (Throwable $e){
+            DB::rollback();
+            return  response()->json($e);
         }
     }
 
     public function update(int $id, PositionRequest $request ): JsonResponse
     {
-        $position = Position::query()->find($id);
-        $position->update($request->all());
-
-        return response()->json($position);
+        try{
+            DB::beginTransaction();
+            $position = Position::query()->find($id);
+            $position->update($request->all());
+            DB::commit();
+            return response()->json($position);
+        } catch (Throwable $e){
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 
     public function destroy(int $id): JsonResponse
     {
-        $position = Position::query()->find($id);
-        $position->delete();
-
-        return response()->json(null, 204);
+        try{
+            DB::beginTransaction();
+            $position = Position::query()->find($id);
+            $position->delete();
+            DB::commit();
+            return response()->json($position);
+        } catch (Throwable $e){
+            DB::rollback();
+            return  response()->json($e);
+        }
     }
 }
